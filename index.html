@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="animate.css">
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.0.0/jquery.serialize-object.compiled.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/0.4.0/firebase-ui-auth.css" />
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDI0cauwWjt8aAZ3s7SRJTfCfx8a8Ez0D4",
+        authDomain: "fir-demo-58739.firebaseapp.com",
+        databaseURL: "https://fir-demo-58739.firebaseio.com",
+        storageBucket: "fir-demo-58739.appspot.com",
+    };
+    firebase.initializeApp(config);
+    // Get a reference to the database service
+    var database = firebase.database();
+    </script>
+</head>
+<style>
+#home,
+#login,
+#about,
+#profile,
+#login-redirect,
+#logout {
+    display: none;
+}
+
+#content {
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-content {
+    padding: 32px 24px;
+}
+
+.card > ul {
+    list-style: none;
+}
+
+.card >ul >li {
+    padding: 16px 24px;
+    background: white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    border-radius: 2px;
+}
+.md-label{
+    font-size: 12px;
+    color: #757575;
+}
+.mdl-center {
+    margin: 16px 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.demo-card-wide.mdl-card {
+    width: 100%;
+    max-width: 480px;
+}
+
+.demo-card-wide > .mdl-card__title {
+    color: #fff;
+    height: 240px;
+    background: url('https://lh3.googleusercontent.com/gwkixzMDyZ2jrs7zR9-qxCwb4uKIjr4I8MFQaA2ITil0FxPieP485uaoRLaa-FCHuap_2B-ySvUZMk8bdi9IbGqQwfbBJy0=s888'), #666;
+    background-size: cover;
+    background-repeat: none;
+}
+
+.demo-card-wide > .mdl-card__menu {
+    color: white;
+}
+</style>
+
+<body>
+    <!-- The drawer is always open in large screens. The header is always shown,
+  even in small screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span id="title" class="mdl-layout-title">Hello</span>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Firebase Demo</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="#/">Home</a>
+                <a class="mdl-navigation__link" href="#/login" id="login_link">Login</a>
+                <a class="mdl-navigation__link" href="#/profile" id="profile_link">Profile</a>
+                <!-- <a class="mdl-navigation__link" href="">Link</a> -->
+                <a class="mdl-navigation__link" href="#/logout" id="logout_link">Logout</a>
+                <a class="mdl-navigation__link" href="#/about">About</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Your content goes here -->
+                <form id="home" role="form">
+                    <div id="content">
+                        <h3>Home</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>1. Create Firebase Project in console.firebase.google.com</p>
+                        <p>2. Add Web App Script to Site</p>
+                        <p>3. Set SignIn Method</p>
+                        <!-- <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--6-col">
+                                Content 1
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                Content 2
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                Content 3
+                            </div>
+                        </div> -->
+                        <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="button">Show Toast</button>
+                        <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                    </div>
+                    <script>
+                    (function() {
+                        'use strict';
+                        window['counter'] = 0;
+                        var snackbarContainer = document.querySelector('#demo-toast-example');
+                        var showToastButton = document.querySelector('#demo-show-toast');
+                        showToastButton.addEventListener('click', function() {
+                            'use strict';
+                            var data = {
+                                message: 'Example Message # ' + ++counter
+                            };
+                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                        });
+                    }());
+                    </script>
+                </form>
+                <form id="login" role="form">
+                    <div id="content">
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-center">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Login</h2>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                Welcome to Firebase JSDemo !
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a href="#" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt-social">Google Login</a>
+                                <a href="#" id="githubBtn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Github Login</a>
+                                <a href="#" id="facebookBtn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt-social">Facebook Login</a>
+                            </div>
+                            <div class="mdl-card__menu">
+                                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                                    <i class="material-icons">info</i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="status-check" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                    </div>
+                </form>
+                <form id="login-redirect" role="form">
+                    <div id="content">
+                        <h3>You haven't logged in</h3>
+                        <p>Looks like ya lost? May login via <a href="#/login">here</a></p>
+                    </div>
+                </form>
+                <form id="profile" >
+                    <div id="content">
+                        <h3>Update Profile</h3>
+                        <p>Welcome, please update your information below.</p>
+                        <form id="profileUpdate" role="form" onsubmit="return validation();">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <label class="md-label" for="name-input">Name</label>
+                                <input class="mdl-textfield__input" type="text" id="name-input">
+                                <span id="error-name" class="mdl-textfield__error"></span>
+                            </div>
+                            <br/>
+                            <div class="mdl-textfield mdl-js-textfield">
+                            <label class="md-label" for="email-input">Email</label>
+                                <input class="mdl-textfield__input" type="email" id="email-input">
+                                <span id="error-email" class="mdl-textfield__error"></span>
+                            </div>
+                            <br/>
+                            <div class="mdl-textfield mdl-js-textfield">
+                            <label class="md-label" for="phone-input">Phone Number</label>
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="phone-input">
+                                
+                                <span id="error-phone" class="mdl-textfield__error"></span>
+                            </div>
+                            <br/><br/>
+                            <button type="submit" value="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="updateBtn">Update Profile</button>
+                        </form>
+                        <div id="profile-check" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                    </div>
+                </form>
+                <form id="logout" role="form">
+                    <div id="content">
+                        <h3>You have logged out</h3>
+                        <p>Go <a href="#/login">here</a> to login back.</p>
+                        <div id="status-check" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+                    </div>
+                </form>
+                <form id="about" role="form">
+                    <div id="content">
+                        <h3>About</h3>
+                    </div>
+                </form>
+            </div>
+            <!--               <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action" type="button"></button>
+                </div> -->
+        </main>
+    </div>
+</body>
+<script src="app.js"></script>
+
+</html>
