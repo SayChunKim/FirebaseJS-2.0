@@ -64,81 +64,15 @@
         document.getElementById('title').innerHTML = 'Login';
 
         // Social buttons
+        document.getElementById('googleBtn').onclick = function(e) {
+            //GITHUB AUTH CODE HERE
+        };
         document.getElementById('githubBtn').onclick = function(e) {
-            var provider = new firebase.auth.GithubAuthProvider();
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                routeTo('profile');
-                var snackbarContainer = document.querySelector('#status-check');
-                var data = {
-                    message: 'Success' + ' | ' + user.displayName + ' Logged In',
-                    timeout: 2000,
-                };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                document.getElementById('logout_link').removeAttribute("style");
-                document.getElementById('logout_link').style.display = 'block';
-                document.getElementById('profile_link').removeAttribute("style");
-                document.getElementById('profile_link').style.display = 'block';
-                document.getElementById('login_link').style.display = 'none';
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                var email = error.email;
-                var credential = error.credential;
-                var snackbarContainer = document.querySelector('#status-check');
-                var data = {
-                    message: error.code + ' | ' + error.message,
-                    timeout: 2000
-                };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                document.getElementById('profile_link').style.display = 'none';
-            });
-
+            //GITHUB AUTH CODE HERE
         };
 
         document.getElementById('facebookBtn').onclick = function(e) {
-            var provider = new firebase.auth.FacebookAuthProvider();
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                routeTo('profile');
-                var snackbarContainer = document.querySelector('#status-check');
-                var data = {
-                    message: 'Success' + ' | ' + user.displayName + ' ' + ' Logged In',
-                    timeout: 2000,
-                };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                document.getElementById('logout_link').style.display = null;
-                document.getElementById('logout_link').style.display = 'block';
-                document.getElementById('profile_link').style.display = null;
-                document.getElementById('profile_link').style.display = 'block';
-                document.getElementById('login_link').style.display = 'none';
-            }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-
-                var snackbarContainer = document.querySelector('#status-check');
-                var data = {
-                    message: error.code + ' | ' + error.message,
-                    timeout: 2000
-                };
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                document.getElementById('profile_link').style.display = 'none';
-            });
-
-        };
+           //GITHUB AUTH CODE HERE
 
     };
 
@@ -157,12 +91,12 @@
                     document.getElementById('logout_link').style.display = 'none';
                     document.getElementById('profile_link').style.display = 'none';
                     document.getElementById('login_link').style.display = 'block';
-                    routeTo('logout');
+                    routeTo('profile');
                 }, function(error) {
                     // An error happened.
                 });
             } else {
-                routeTo('login-redirect');
+                routeTo('logout-redirect');
             };
         });
     }
@@ -207,37 +141,7 @@
     };
 
     function validation(user) {
-        // if (document.getElementById('name-input').value == "") { //checking if the form is empty
-        //     document.getElementById('error-name').innerHTML = "Please enter name";
-        //     document.getElementById('error-name').style.visibility = "visible";
-        //     //displaying a message if the form is empty
-        // }
-        // if (document.getElementById('name-input').value != "") { //checking if the form is empty
-        //     document.getElementById('error-name').innerHTML = "";
-        //     document.getElementById('error-name').style.visibility = "hidden";
-        //     //displaying a message if the form is empty
-        // }
-        // if (document.getElementById('email-input').value == "") { //checking if the form is empty
-        //     document.getElementById('error-email').innerHTML = "Please enter email";
-        //     document.getElementById('error-email').style.visibility = "visible";
-        //     //displaying a message if the form is empty
-        // }
-        // if (document.getElementById('email-input').value != "") { //checking if the form is empty
-        //     document.getElementById('error-email').innerHTML = "";
-        //     document.getElementById('error-email').style.visibility = "hidden";
-        //     //displaying a message if the form is empty
-        // }
-        // if (document.getElementById('phone-input').value == "") { //checking if the form is empty
-        //     document.getElementById('error-phone').innerHTML = "Please enter phone number";
-        //     document.getElementById('error-phone').style.visibility = "visible";
-        //     //displaying a message if the form is empty
-        // }
-        // if (document.getElementById('phone-input').value != "") { //checking if the form is empty
-        //     document.getElementById('error-phone').innerHTML = "";
-        //     document.getElementById('error-phone').style.visibility = "hidden";
-        //     //displaying a message if the form is empty
-        // }
-        // if ((document.getElementById('name-input').value != "") && (document.getElementById('email-input').value != "") && (document.getElementById('phone-input').value != "")) {
+        
         var userName = document.getElementById('name-input').value;
         var userEmail = document.getElementById('email-input').value;
         var userPhone = document.getElementById('phone-input').value;
@@ -259,41 +163,8 @@
             document.getElementById('error-phone').innerHTML = "";
             document.getElementById('error-phone').style.visibility = "hidden";
         });
-        // } else {
-
-        // }
+        
     }
-    // controllers.contact = function(form) {
-    //    console.log(activeForm);
-    //    var iframe = document.getElementById('iframe');
-    //     iframe.frameBorder=0;
-    //     iframe.width="100%";
-    //     iframe.height="300";
-    //     iframe.id="randomid";
-    //     iframe.setAttribute("src", "https://www.google.com/maps/embed/v1/place?key=AIzaSyCKpZ29pdy8EZk_EbppOq8DnB13ShnMjpc&q=Trend+Global+Industries,Selangor");
-
-    //     // document.getElementById("map").appendChild(iframe);
-    //     form.on("submit", function() {
-    //         var name = form.find('#name').val();
-    //         var message = form.find('#message').val();
-    //         var email = form.find('#email').val();
-    //         $.ajax({
-    //             url: "//formspree.io/trendglobalacct@yahoo.com.my",
-    //             method: "POST",
-    //             data: {
-    //                 name: name,
-    //                 email: email,
-    //                 message: message
-    //             },
-    //             dataType: "json"
-    //         });
-    //         routeTo("success/thanks");
-    //         return false;
-    //     });
-    // };
-
-
-
     /// Routing
     ////////////////////////////////////////
 
