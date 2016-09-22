@@ -150,9 +150,9 @@
                     timeout: 2000,
                 };
                 snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                document.getElementById('logout_link').style.display = null;
+                document.getElementById('logout_link').removeAttribute("style");
                 document.getElementById('logout_link').style.display = 'block';
-                document.getElementById('profile_link').style.display = null;
+                document.getElementById('profile_link').removeAttribute("style");
                 document.getElementById('profile_link').style.display = 'block';
                 document.getElementById('login_link').style.display = 'none';
             }).catch(function(error) {
@@ -181,7 +181,7 @@
     controllers.logout = function(form) {
         document.title = "Logout | Bye-Bye";
         document.getElementById('title').innerHTML = 'Logout';
-        firebase.auth().onAuthStateChanged(function(user) {
+        var user = firebase.auth().currentUser;
             if (user) {
                 firebase.auth().signOut().then(function() {
                     var snackbarContainer = document.querySelector('#status-check');
@@ -193,20 +193,18 @@
                     document.getElementById('logout_link').style.display = 'none';
                     document.getElementById('profile_link').style.display = 'none';
                     document.getElementById('login_link').style.display = 'block';
-                    routeTo('profile');
                 }, function(error) {
                     // An error happened.
                 });
             } else {
-                routeTo('logout-redirect');
+                routeTo('login-redirect');
             };
-        });
     }
     controllers.profile = function(form) {
         document.title = "Profile | Information";
         var form = document.getElementById("profileUpdate");
         document.getElementById('title').innerHTML = 'Profile Update';
-        firebase.auth().onAuthStateChanged(function(user) {
+        var user = firebase.auth().currentUser;
             if (user) {
                 // Load user info
                 document.getElementById('profile_link').style.display = 'block';
@@ -236,10 +234,9 @@
                     validation(user);
 
                 });
-            } else if (!user) {
+            } else  {
                 routeTo('login-redirect');
             }
-        });
     };
 
     function validation(user) {
