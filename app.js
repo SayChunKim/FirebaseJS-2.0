@@ -182,29 +182,29 @@
         document.title = "Logout | Bye-Bye";
         document.getElementById('title').innerHTML = 'Logout';
         var user = firebase.auth().currentUser;
-            if (user) {
-                firebase.auth().signOut().then(function() {
-                    var snackbarContainer = document.querySelector('#status-check');
-                    var data = {
-                        message: 'Logged Out Successfully',
-                        timeout: 2000,
-                    };
-                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                    document.getElementById('logout_link').style.display = 'none';
-                    document.getElementById('profile_link').style.display = 'none';
-                    document.getElementById('login_link').style.display = 'block';
-                }, function(error) {
-                    // An error happened.
-                });
-            } else {
-                routeTo('login-redirect');
-            };
+        if (user) {
+            firebase.auth().signOut().then(function() {
+                var snackbarContainer = document.querySelector('#status-check');
+                var data = {
+                    message: 'Logged Out Successfully',
+                    timeout: 2000,
+                };
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                document.getElementById('logout_link').style.display = 'none';
+                document.getElementById('profile_link').style.display = 'none';
+                document.getElementById('login_link').style.display = 'block';
+            }, function(error) {
+                // An error happened.
+            });
+        } else {
+            routeTo('login-redirect');
+        };
     }
     controllers.profile = function(form) {
         document.title = "Profile | Information";
         var form = document.getElementById("profileUpdate");
         document.getElementById('title').innerHTML = 'Profile Update';
-        var user = firebase.auth().currentUser;
+        firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 // Load user info
                 document.getElementById('profile_link').style.display = 'block';
@@ -234,13 +234,14 @@
                     validation(user);
 
                 });
-            } else  {
+            } else {
                 routeTo('login-redirect');
             }
-    };
+        });
+    }
 
     function validation(user) {
-        
+
         var userName = document.getElementById('name-input').value;
         var userEmail = document.getElementById('email-input').value;
         var userPhone = document.getElementById('phone-input').value;
@@ -262,7 +263,7 @@
             document.getElementById('error-phone').innerHTML = "";
             document.getElementById('error-phone').style.visibility = "hidden";
         });
-        
+
     }
     /// Routing
     ////////////////////////////////////////
